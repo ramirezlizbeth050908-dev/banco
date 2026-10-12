@@ -1,6 +1,6 @@
 # Turnero de ventanilla
 
-Aplicación Angular + FastAPI para una recepción y cuatro mesas de atención. Incluye registro de clientes, fila FIFO, llamada del siguiente turno, rellamada y cierre de atención. La pantalla se actualiza cada 3 segundos.
+Aplicación Angular + FastAPI para una recepción y cuatro mesas de atención. Incluye registro de clientes, fila FIFO, llamada del siguiente turno, rellamada y cierre de atención. La pantalla se actualiza cada 3 segundos. Los folios se generan con el ID único de la base de datos para mantener el orden de asignación.
 
 ## Desarrollo local
 
