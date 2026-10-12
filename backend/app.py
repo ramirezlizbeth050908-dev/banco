@@ -73,8 +73,10 @@ def health():
 @app.post("/api/turnos", response_model=Turno, status_code=201)
 def crear_turno(payload: NuevoTurno):
     with db_lock, Session(engine) as session:
-        count = len(session.exec(select(Turno)).all())
-        turno = Turno(folio=f"A{count + 1:03d}", nombre=payload.nombre.strip(), tramite=payload.tramite.strip())
+        turno = Turno(folio="", nombre=payload.nombre.strip(), tramite=payload.tramite.strip())
+        session.add(turno)
+        session.flush()
+        turno.folio = f"A{turno.id:03d}"
         session.add(turno)
         session.commit()
         session.refresh(turno)
