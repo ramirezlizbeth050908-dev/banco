@@ -1,8 +1,19 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/turnero/browser",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "app": {
+      "root": ".",
+      "framework": "angular"
+    },
+    "backend": {
+      "root": "backend/",
+      "framework": "fastapi",
+      "entrypoint": "app:app"
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/api", "destination": { "service": "backend" } },
+    { "source": "/api/(.*)", "destination": { "service": "backend" } },
+    { "source": "/(.*)", "destination": { "service": "app" } }
   ]
 }
