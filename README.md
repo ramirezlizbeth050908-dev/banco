@@ -28,12 +28,12 @@ Requisitos: Node.js 20.19+ y Python 3.10+.
 ## Despliegue en Vercel conectado a GitHub
 
 1. Sube la carpeta `turnero` a un repositorio de GitHub.
-2. En Vercel elige **Add New Project**, importa ese repositorio y deja el **Root Directory** en `turnero` (o en la raíz del repo si ahí están estos archivos).
-3. Vercel usa `npm run build` para Angular, publica `dist/turnero/browser` y ejecuta FastAPI como función Python desde `api/index.py`.
+2. En Vercel elige **Add New Project**, importa ese repositorio y deja el **Root Directory** en `./` (raíz del repositorio).
+3. Vercel detecta los servicios `app` (Angular) y `backend` (FastAPI) desde `vercel.json` y los publica bajo el mismo dominio; las rutas `/api/*` se envían al backend.
 4. Crea una base PostgreSQL administrada (por ejemplo, Neon o Supabase) y agrega `DATABASE_URL` en **Settings → Environment Variables** para Production y Preview. Usa una URL compatible con psycopg 3, como `postgresql+psycopg://...`.
 5. Despliega. Los siguientes `push` a GitHub generan nuevos deployments automáticamente.
 
-Vercel ejecuta funciones sin almacenamiento local persistente; por eso en Vercel debe configurarse PostgreSQL. Si `DATABASE_URL` no existe, el backend usa SQLite para desarrollo local.
+Vercel ejecuta funciones sin almacenamiento local persistente; por eso en Vercel debe configurarse PostgreSQL. Si `DATABASE_URL` no existe, el backend usa SQLite para desarrollo local. En la pantalla de importación selecciona **Import multi-service project** después de pulsar **Refresh**.
 
 ## API
 
