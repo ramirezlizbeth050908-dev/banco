@@ -11,8 +11,12 @@ from pydantic import BaseModel, Field
 from sqlmodel import Field as SQLField, Session, SQLModel, create_engine, select
 
 
-DB_PATH = Path(__file__).parent / "turnos.db"
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DB_PATH}")
+if os.getenv("VERCEL"):
+    # Vercel functions have a read-only deployment filesystem; /tmp is writable.
+    DB_PATH = Path("/tmp/turnos.db")
+else:
+    DB_PATH = Path(__file__).parent / "turnos.db"
+DATABASE_URL = os.getenv("DATABASE_URL") or f"sqlite:///{DB_PATH}"
 engine_options = {"pool_pre_ping": True}
 if DATABASE_URL.startswith("sqlite"):
     engine_options["connect_args"] = {"check_same_thread": False}
